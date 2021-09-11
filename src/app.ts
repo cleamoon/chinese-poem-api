@@ -77,4 +77,14 @@ app.delete("/poem/:id", async (req, res) => {
     }
 });
 
+// Limit access rate to 100 per 15 minutes
+const rateLimit = require("express-rate-limit")
+
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 100
+});
+
+app.use(limiter)
+
 export {app};
